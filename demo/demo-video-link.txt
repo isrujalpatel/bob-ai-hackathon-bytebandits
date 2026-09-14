@@ -1,15 +1,7 @@
-https://youtu.be/your-demo-video-link-here
+DEMO VIDEO LINK — add URL here before submission.
 
-Replace the URL above with a link to your demo video.
+Record a 3–5 minute walkthrough showing the app running end-to-end.
+Upload to YouTube (unlisted), Loom, or Google Drive (anyone with link can view).
+Replace this entire file contents with just the URL.
 
-Accepted platforms:
-  - YouTube (public or unlisted)
-  - Loom (https://www.loom.com/share/...)
-  - IBM Box (https://ibm.box.com/s/...)
-  - Google Drive (set to "Anyone with the link can view")
-
-Video requirements:
-  - Length: 3–5 minutes maximum
-  - Must show the application running (not just slides)
-  - Should walk through at least one key feature end-to-end
-  - Audio narration strongly recommended
+Example: https://youtu.be/xxxxxxxxxxxx

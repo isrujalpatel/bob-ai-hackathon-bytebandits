@@ -1,121 +1,130 @@
-# 🚀 [Your Project Title Here]
+# Container Congestion Predictor & Port Operations Optimiser
 
-> ⚠️ **Replace everything in `[ ]` brackets with your actual content before submission.**
+> **IBM BoB AI Innovation Hackathon 2026 — Team ByteBandits**
+> Track: AI · Problem Statement L1 — Logistics & Ports
 
 ---
 
-## 👥 Team
+## Team
 
 | Field | Value |
 |---|---|
-| **Team Name** | [Your Team Name] |
-| **Track** | [AI / DevOps / Sustainability / Open] |
-| **Team Lead** | [Name] — [email@ibm.com] |
-| **Members** | [Name 1], [Name 2], [Name 3] |
+| **Team Name** | ByteBandits |
+| **Track** | AI |
+| **Team Lead** | Prince Patel — prince@example.com |
+| **Members** | Prince Patel, Member 2, Member 3 |
 
 ---
 
-## 🎯 Problem Statement
+## Problem Statement
 
-> In 2–3 sentences: What problem does your project solve? Who experiences this problem?
-
-[Describe the real-world problem your project addresses. Be specific about who the user is and what pain point they face.]
+Port operators at major container terminals like Los Angeles/Long Beach allocate berths and cranes manually using spreadsheets, only discovering congestion hotspots *reactively* — after vessels have already begun queuing offshore. The 2021 LA/LB backlog held over 100 ships for weeks and cost global supply chains more than $10B. No widely accessible tool connects real vessel-arrival data to proactive, shift-ready scheduling decisions.
 
 ---
 
-## 💡 Solution
+## Solution
 
-> In 2–3 sentences: What did you build? How does it solve the problem above?
-
-[Describe your solution clearly. Explain the core mechanism — what makes it work.]
+We built a full-stack system that fetches **live daily vessel-call data from the IMF PortWatch API** (real AIS-based satellite tracking of ~90,000 ships), generates a calibrated 72-hour simulated vessel schedule, runs a **rule-based congestion detector** to flag over-capacity time windows before they occur, and applies a **greedy berth/crane assignment optimiser** to minimise total vessel wait time. Results feed a **Google Gemini-powered natural-language 72-hour operations brief** that shift supervisors can act on immediately.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-- **Feature 1:** [Brief description — e.g., "Real-time anomaly detection using watsonx.ai"]
-- **Feature 2:** [Brief description]
-- **Feature 3:** [Brief description]
-- **Feature 4:** [Optional]
-- **Feature 5:** [Optional]
+- **Real data anchor**: live IMF PortWatch API integration — daily vessel-call volumes from AIS satellite tracking calibrate every simulation run
+- **Congestion hotspot detection**: slot-by-slot berth demand vs. capacity, flagged LOW / MEDIUM / HIGH severity with exact time windows
+- **Berth & crane optimiser**: greedy earliest-available-berth algorithm assigns each vessel to a berth and crane count, outputs structured schedule table
+- **AI operations brief**: Google Gemini 2.0 Flash generates a BLUF-style 72-hour plan shift supervisors can act on without any training
+- **React dashboard**: interactive colour-coded congestion timeline, filterable/sortable assignment table, and the operator brief in a single view
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Category | Technologies |
 |---|---|
-| **Languages** | [e.g., Python, TypeScript] |
-| **Frameworks** | [e.g., FastAPI, React] |
-| **IBM Technologies** | [e.g., watsonx.ai, IBM Bob, IBM Cloud] |
-| **Databases** | [e.g., PostgreSQL, Redis] |
-| **Other** | [e.g., Docker, GitHub Actions] |
+| **Languages** | Python, JavaScript |
+| **Frameworks** | FastAPI, React, Vite, Recharts |
+| **IBM Technologies** | IBM Bob (AI coding agent — entire project built inside Bob) |
+| **Data Sources** | IMF PortWatch API (real AIS data), Google Gemini 2.0 Flash API |
+| **Other** | httpx, pandas, Render (backend), Vercel (frontend) |
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
-├── src/                  # All source code
-├── docs/                 # Written documentation
+├── src/
+│   ├── backend/          ← Python FastAPI: data fetcher, congestion, optimizer, Gemini brief
+│   ├── frontend/         ← React/Vite dashboard
+│   ├── data/             ← Auto-created CSV cache (gitignored)
+│   └── .env.example      ← Environment variable template
+├── docs/
 │   ├── problem-statement.md
 │   ├── solution-overview.md
-│   ├── architecture.md
+│   ├── architecture.md   ← Mermaid diagram + component table
 │   └── setup-guide.md
-├── demo/                 # Demo artifacts
-│   ├── screenshots/      # App screenshots
-│   └── demo-video-link.txt  # Link to demo video
-├── presentation/         # Slide deck
-└── submission.yaml       # Structured submission metadata
+├── demo/
+│   ├── screenshots/
+│   ├── demo-video-link.txt
+│   └── live-demo-url.txt
+├── presentation/
+└── submission.yaml
 ```
 
 ---
 
-## ⚡ How to Run
-
-> **Copy these exact steps from your [`docs/setup-guide.md`](docs/setup-guide.md)**
+## How to Run
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/[your-repo].git
-cd [your-repo]
+git clone https://github.com/your-org/bob-ai-hackathon-bytebandits.git
+cd bob-ai-hackathon-bytebandits
 
-# 2. Install dependencies
-[your install command here]
+# 2. Backend — set up Python environment
+cd src/backend
+pip install -r requirements.txt
 
 # 3. Configure environment
+cd ..
 cp .env.example .env
-# Edit .env with your values
+# Open .env and set: GEMINI_API_KEY=<your key from aistudio.google.com>
 
-# 4. Run the project
-[your run command here]
+# 4. Start the backend
+cd ..   # back to repo root
+uvicorn backend.main:app --app-dir src --reload --port 8000
+
+# 5. Frontend — new terminal
+cd src/frontend
+npm install
+npm run dev   # opens http://localhost:3000
 ```
+
+Full instructions (prerequisites, troubleshooting, deployment): see [`docs/setup-guide.md`](docs/setup-guide.md).
 
 ---
 
-## 🖥️ Demo
+## Demo
 
 | Artifact | Link |
 |---|---|
-| 📹 Demo Video | [See demo/demo-video-link.txt](demo/demo-video-link.txt) |
-| 🌐 Live Demo | [See demo/live-demo-url.txt](demo/live-demo-url.txt) |
-| 🖼️ Screenshots | [See demo/screenshots/](demo/screenshots/) |
-| 📊 Presentation | [See presentation/slides.pdf](presentation/) |
+| Demo Video | [See demo/demo-video-link.txt](demo/demo-video-link.txt) |
+| Live Demo | [See demo/live-demo-url.txt](demo/live-demo-url.txt) |
+| Screenshots | [See demo/screenshots/](demo/screenshots/) |
+| Presentation | [See presentation/](presentation/) |
 
 ---
 
-## ⚠️ Known Limitations
+## Known Limitations
 
-> Be honest — judges appreciate transparency over overclaiming.
-
-- [Limitation 1: e.g., "Authentication is mocked — not production-ready"]
-- [Limitation 2: e.g., "Only tested on Chrome"]
-- [Limitation 3: e.g., "Feature X is scaffolded but not fully implemented"]
+- Per-vessel ETAs and individual berth/crane specs are **simulated** — no free public dataset provides this granularity (clearly documented in code and docs)
+- Gemini API key required for AI brief generation; app falls back to a structured rule-based brief if unavailable
+- Optimiser uses greedy FCFS heuristic — not globally optimal, but O(V×B), interpretable, and sufficient for 50–100 vessels
+- Render free-tier backend cold-starts in ~30–60 s after 15 min of inactivity
 
 ---
 
-## 🏅 What We're Most Proud Of
+## What We're Most Proud Of
 
-[Tell the judges what part of your submission is strongest and worth paying close attention to.]
+The **honest data-lineage design**: we anchor every run to live IMF PortWatch AIS data and explicitly label the simulated layer — judges can see exactly what is real and what is modelled. The congestion detector and optimiser are deliberately rule-based and explainable so a port supervisor (or a judge) can follow the logic, not just trust a black-box score. The entire project was built end-to-end inside **IBM Bob**, making the AI coding agent genuinely load-bearing throughout development.
 
 ---

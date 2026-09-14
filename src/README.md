@@ -1,47 +1,55 @@
 # Source Code
 
-Place all your project's source code in this folder.
+## Layout
 
-## Structure Guidelines
-
-Organize your code logically. Here are common patterns — use whatever fits
-your project:
-
-### Web Application
 ```
 src/
-  backend/        ← API server code
-  frontend/       ← UI code
-  shared/         ← Shared utilities/types
+├── backend/           ← Python FastAPI service
+│   ├── main.py        ← FastAPI app + all API routes
+│   ├── data_fetcher.py← IMF PortWatch API client + CSV cache
+│   ├── simulator.py   ← Simulated per-vessel schedule generator
+│   ├── congestion.py  ← Rule-based congestion hotspot detector
+│   ├── optimizer.py   ← Greedy berth/crane assignment optimiser
+│   ├── brief_generator.py ← Google Gemini API wrapper
+│   └── requirements.txt
+├── frontend/          ← React/Vite dashboard
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── styles.css
+│   │   └── components/
+│   │       ├── CongestionTimeline.jsx
+│   │       ├── AssignmentTable.jsx
+│   │       ├── OperationsBrief.jsx
+│   │       └── MetaBanner.jsx
+│   ├── index.html
+│   ├── vite.config.js
+│   └── package.json
+├── data/              ← Auto-created at runtime; holds CSV cache from PortWatch API
+└── .env.example       ← Template for environment variables
 ```
 
-### Data / AI Project
+## Quick start
+
+See [`docs/setup-guide.md`](../docs/setup-guide.md) for full instructions.
+
+```bash
+# Backend
+cd src/backend
+pip install -r requirements.txt
+cp ../.env.example ../.env   # fill in GEMINI_API_KEY
+uvicorn backend.main:app --app-dir .. --reload --port 8000
+
+# Frontend (new terminal)
+cd src/frontend
+npm install
+npm run dev          # opens http://localhost:3000
 ```
-src/
-  data/           ← Data ingestion / preprocessing
-  models/         ← ML model code
-  api/            ← Serving layer
-  notebooks/      ← Jupyter notebooks (exploration)
-```
 
-### CLI / Script-based Tool
-```
-src/
-  cli/            ← CLI entry points
-  lib/            ← Core logic
-  utils/          ← Helpers
-```
+## Data lineage
 
-## Important Files to Include
-
-- `requirements.txt` or `package.json` — dependency manifest
-- `.env.example` — template for environment variables (NEVER commit `.env`)
-- Any database migration files
-- Configuration files
-
-## What NOT to Include in src/
-
-- `.env` files with real secrets
-- Large binary files (use Git LFS or link externally)
-- `node_modules/` or `venv/` (these are in `.gitignore`)
-- Build artifacts (`dist/`, `build/`, `__pycache__/`)
+- **Real data**: daily vessel-call volumes are fetched live from the
+  [IMF PortWatch API](https://portwatch.imf.org) (AIS-based satellite tracking).
+  Responses are cached as CSV in `src/data/` for offline/demo resilience.
+- **Simulated data**: per-vessel ETAs, berth assignments, and crane counts are
+  generated synthetically, calibrated to the real daily volumes.
+  This granularity is not available in any free public dataset.

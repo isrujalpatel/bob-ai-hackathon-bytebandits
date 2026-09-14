@@ -9,51 +9,69 @@
 # =============================================================================
 
 team:
-  name: ""                             # REQUIRED — e.g., "Orion Squad"
-  track: ""                            # REQUIRED — one of: AI | DevOps | Sustainability | Open
+  name: "ByteBandits"                  
+  track: "AI"                          
   lead:
-    name: ""                           # REQUIRED — e.g., "Alice Chen"
-    email: ""                          # REQUIRED — e.g., "alice.chen@ibm.com"
+    name: "Srujal Patel"               
+    email: "24cs076@charusat.edu.in"        
   members:
-    - name: ""                         # REQUIRED — Team member 1
-      email: ""
-    - name: ""                         # Add more members by copying the two lines above
-      email: ""
-    - name: ""
-      email: ""
+    - name: "Prince Patel"             
+      email: "24cs072@charusat.edu.in"
+    - name: "Manav Patel"                 
+      email: "24cs067@charusat.edu.in"
+    - name: "Mantra Patel"                 
+      email: "24cs068@charusat.edu.in"
 
 submission:
-  title: ""                            # REQUIRED — Project display name, e.g., "SmartOps Dashboard"
+  title: "Container Congestion Predictor & Port Operations Optimiser" 
 
-  problem_statement: >                 # REQUIRED — 1-3 sentences. What problem? Who has it?
-    Replace this text with a concise description of the real-world problem
-    your project addresses and who experiences it.
+  problem_statement: >                 # REQUIRED
+    Port operators at major container terminals like Los Angeles/Long Beach
+    allocate berths and cranes manually using spreadsheets, only discovering
+    congestion hotspots reactively after vessels have already begun queuing
+    offshore — the 2021 LA/LB backlog held 100+ ships for weeks and cost
+    supply chains over $10B. The core failure is that no tool connects
+    real vessel-arrival volumes to proactive, shift-ready scheduling decisions.
 
-  solution_summary: >                  # REQUIRED — 1-3 sentences. What did you build?
-    Replace this text with a clear description of your solution
-    and how it addresses the problem above.
+  solution_summary: >                  # REQUIRED
+    We built a full-stack system that fetches live daily vessel-call data from
+    the IMF PortWatch API (real AIS-based satellite tracking), generates a
+    calibrated 72-hour simulated vessel schedule, runs a rule-based congestion
+    detector to flag over-capacity time windows before they occur, and applies
+    a greedy berth/crane assignment optimiser to minimise total vessel wait time.
+    The results feed a Google Gemini-powered natural-language operations brief
+    that shift supervisors can act on immediately — no spreadsheet required.
 
-  key_features:                        # REQUIRED — List 3 to 5 specific features you implemented
-    - ""                               # e.g., "Real-time pipeline anomaly detection using watsonx.ai"
-    - ""
-    - ""
-    - ""                               # optional 4th
-    - ""                               # optional 5th
+  key_features:                        # REQUIRED
+    - "Live IMF PortWatch API integration: real AIS-based daily vessel-call volumes anchor the 72-hour simulation"
+    - "Rule-based congestion hotspot detection: slot-by-slot berth demand vs. capacity with LOW/MEDIUM/HIGH severity flags"
+    - "Greedy berth & crane assignment optimiser: assigns each vessel to the earliest compatible berth, outputs structured schedule table"
+    - "AI-generated 72-hour operations brief: Google Gemini 2.0 Flash produces a BLUF-style plan shift supervisors can act on immediately"
+    - "React dashboard: interactive congestion timeline, filterable assignment table, and operations brief in one view"
 
   tech_stack:
-    languages: []                      # REQUIRED — e.g., ["Python", "TypeScript"]
-    frameworks: []                     # e.g., ["FastAPI", "React"]
-    ibm_technologies: []               # e.g., ["watsonx.ai", "IBM Bob", "IBM Cloud Functions"]
-    databases: []                      # e.g., ["PostgreSQL", "Redis"]
-    other: []                          # e.g., ["Docker", "GitHub Actions", "Slack API"]
+    languages: ["Python", "JavaScript"]
+    frameworks: ["FastAPI", "React", "Vite", "Recharts"]
+    ibm_technologies: ["IBM Bob (AI coding agent — entire project built inside Bob IDE)"]
+    databases: []
+    other: ["IMF PortWatch API", "Google Gemini API", "httpx", "pandas", "Render", "Vercel"]
 
-  what_we_are_most_proud_of: >         # Optional but recommended — guides judges to your best work
-    Replace with what aspect of the submission you consider strongest
-    and want judges to pay special attention to.
+  what_we_are_most_proud_of: >
+    The honest data-lineage design: instead of presenting fully synthetic data
+    as if it were real, we anchor the simulation to live IMF PortWatch AIS data
+    and clearly label the simulated layer. The congestion detector and berth
+    optimiser are deliberately simple and explainable — a port supervisor can
+    follow the logic, not just the output. And the entire project was built
+    end-to-end inside IBM Bob, making the AI coding agent genuinely load-bearing,
+    not just name-dropped.
 
-  known_limitations: >                 # Optional but recommended — be honest about gaps
-    Replace with any known limitations, incomplete features,
-    or shortcuts taken due to time constraints.
+  known_limitations: >
+    Per-vessel ETAs and berth/crane counts are simulated (no free public dataset
+    provides this granularity). The Gemini-generated brief requires a free API key;
+    the app falls back to a structured rule-based brief if unavailable. The
+    optimiser uses a greedy FCFS heuristic — not globally optimal, but O(V×B)
+    and fully interpretable. Render free-tier backend cold-starts in ~30-60s
+    after 15 min of inactivity.
 
 # =============================================================================
 # ARTIFACT LOCATIONS
@@ -63,7 +81,7 @@ artifacts:
   source_code: "src/"
   setup_guide: "docs/setup-guide.md"
   architecture_doc: "docs/architecture.md"
-  demo_video: "demo/demo-video-link.txt"   # URL to hosted video (YouTube, Loom, Box)
-  live_demo: "demo/live-demo-url.txt"      # URL to deployed demo (optional)
+  demo_video: "demo/demo-video-link.txt"  
+  live_demo: "demo/live-demo-url.txt"      
   screenshots: "demo/screenshots/"
   presentation: "presentation/"
