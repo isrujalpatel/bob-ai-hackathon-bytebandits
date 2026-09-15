@@ -1,7 +1,7 @@
-DEMO VIDEO LINK — add URL here before submission.
+# Demo Video Link
 
-Record a 3–5 minute walkthrough showing the app running end-to-end.
-Upload to YouTube (unlisted), Loom, or Google Drive (anyone with link can view).
-Replace this entire file contents with just the URL.
+https://drive.google.com/file/d/1WqMtrRLlOPkhkHApkReHF4LhySAhRRyd/view?usp=sharing
 
-Example: https://youtu.be/xxxxxxxxxxxx
+
+
+

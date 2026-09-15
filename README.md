@@ -11,8 +11,8 @@
 |---|---|
 | **Team Name** | ByteBandits |
 | **Track** | AI |
-| **Team Lead** | Prince Patel — prince@example.com |
-| **Members** | Prince Patel, Member 2, Member 3 |
+| **Team Lead** | Srujal Patel — 24cs076@charusat.edu.in |
+| **Members** | Prince Patel, Manav Patel, Mantra Patel |
 
 ---
 

@@ -1,5 +1,4 @@
-NOT DEPLOYED — run locally using docs/setup-guide.md
+DEPLOYED Project (On Render+vercel)
+Live demo URL
 
-Deploy to Render (backend) + Vercel (frontend) when ready.
-See docs/setup-guide.md#deployment-render--vercel for exact steps.
-Update this file with the Vercel URL once deployed.
+https://bob-ai-hackathon-bytebandits.vercel.app/
